@@ -5,20 +5,23 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
+    [SerializeField]private Animator animator;
     [SerializeField] private Transform groundCheckTransform = null;
     [SerializeField] private LayerMask playerMask;
 
     private bool jumpKeyPressed;
     private float horizontalInput;
     private new Rigidbody rigidbody;
+    
     private int superJumpsRemaining;
+    
 
 
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -63,6 +66,7 @@ public class Player : MonoBehaviour
         rigidbody.velocity = new Vector3(horizontalInput * 3, rigidbody.velocity.y, rigidbody.velocity.z);
 
 
+        animator.SetFloat("Speed", horizontalInput);
 
 
     }
