@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) == true)
+        if (Input.GetKeyDown(KeyCode.Space) == true)
         {
             jumpKeyPressed = true;
         }
@@ -32,7 +32,8 @@ public class Player : MonoBehaviour
 
         horizontalInput = Input.GetAxis("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.Escape)){
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
             Application.Quit();
         }
     }
@@ -40,34 +41,35 @@ public class Player : MonoBehaviour
     //Fixed Update is called once every physics update
     private void FixedUpdate()
     {
-        if(rigidbody.position.y < -8.5) FindAnyObjectByType<GameManager>().EndGame();
+        if (rigidbody.position.y < -8.5) FindAnyObjectByType<GameManager>().EndGame();
 
         if (Physics.OverlapSphere(groundCheckTransform.position, 0.1f, playerMask).Length == 0)
         {
             return;
         }
 
-        if(jumpKeyPressed == true) {
+        if (jumpKeyPressed == true)
+        {
             float jumpPower = 5;
-            if(superJumpsRemaining > 0)
+            if (superJumpsRemaining > 0)
             {
-                jumpPower *= 1.3f;
+                jumpPower *= 1.7f;
                 superJumpsRemaining--;
             }
             rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.VelocityChange);
             jumpKeyPressed = false;
         }
 
-        rigidbody.velocity = new Vector3(horizontalInput*3, rigidbody.velocity.y, rigidbody.velocity.z);
+        rigidbody.velocity = new Vector3(horizontalInput * 3, rigidbody.velocity.y, rigidbody.velocity.z);
 
- 
+
 
 
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == 6)
+        if (other.gameObject.layer == 6)
         {
             other.gameObject.SetActive(false);
             //other.gameObject.GetComponent<MeshRenderer>().enabled = false;
